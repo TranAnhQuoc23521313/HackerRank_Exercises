@@ -1,7 +1,8 @@
 {
   "files.associations": {
     "vector": "cpp",
-    "string": "cpp"
+    "string": "cpp",
+    "functional": "cpp"
   },
   "C_Cpp_Runner.msvcBatchPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Auxiliary/Build/vcvarsall.bat",
   "C_Cpp_Runner.cCompilerPath": "gcc",

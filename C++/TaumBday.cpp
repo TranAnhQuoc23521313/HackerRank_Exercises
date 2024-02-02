@@ -95,7 +95,7 @@ vector<vector<long>> Input_Data(int &n,string File_Input_Name)
 void Output_Data(vector<long long> a,int n,string File_Output_Name)
 {
     ofstream fo(File_Output_Name);
-    fo << "n = " << n-1 << endl;
+    fo << "n = " << n << endl;
     int i = 1;
     for (auto& row:a)
     {

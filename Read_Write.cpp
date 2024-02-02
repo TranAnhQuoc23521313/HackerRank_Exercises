@@ -24,17 +24,14 @@ void Output_Data(vector<int> a,int,string);  // Change the argument following th
 int main()
 {
     int n;
-    for (int i = 1; i <= NumberOfFile;i++)
-    {
-        vector<int> a;
-        string File_Input_Name = GetInputFileName(i);
-        //string File_Input_Name = "input.inp";
-        a = Input_Data(n,File_Input_Name);
-        string File_Output_Name = GetOutputFileName(i);
-        //string File_Output_Name = "output.out";
-        Output_Data(a,n,File_Output_Name);
-        a = vector<int>();
-    }
+    vector<int> a;
+    //string File_Input_Name = GetInputFileName(i);
+    string File_Input_Name = "input.inp";
+    a = Input_Data(n,File_Input_Name);
+    //string File_Output_Name = GetOutputFileName(i);
+    string File_Output_Name = "output.out";
+    Output_Data(a,n,File_Output_Name);
+    a = vector<int>();
     return 0;
 }
 
