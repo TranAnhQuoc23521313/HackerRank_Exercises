@@ -10,6 +10,8 @@
 #include <iomanip>
 #include <cstdlib>
 #include <ctime>
+#include <set>
+#include <map>
 
 #define NumberOfFile 1
 using namespace std;
