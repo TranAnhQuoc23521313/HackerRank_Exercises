@@ -16,83 +16,48 @@
 #define NumberOfFile 1
 using namespace std;
 
-string Create_Word(int x)
+vector<int> serviceLane(int n, vector<vector<int>> cases, vector<int> width) 
 {
-    map<int,string> Quarter;
-    Quarter[15]="quarter past ";
-    Quarter[30]="half past ";
-    Quarter[45]="quarter to ";
-    if (x == 15 || x == 45 || x == 30)
-        return Quarter[x];
-    if (x > 10 && x < 20)
+    map<int,int> arr;
+    vector<int> result;
+    for (int i = 0; i < n;i++)
+        arr[i]=width[i];
+    for (int i = 0; i < cases.size();i++)
     {
-        string a[] = {"eleven","twelve","thirteen","forteen","fifteen","sixteen","seventeen","eighteen","nineteen"};
-        return a[x-11];
+        
     }
-    string dozen[] = {"ten","twenty","thirty","forty","fifty"};
-    string unit[] = {"one","two","three","four","five","six","seven","eight","nine"};
-    if (x<10)
-        return unit[x-1];
-    if (x%10==0)
-    {
-        return dozen[x/10-1];
-    }
-    int dozen_x = x/10;
-    int unit_x = x%10;
-    return dozen[dozen_x-1] + " " + unit[unit_x-1];
-}
-
-string timeInWords(int h, int m) 
-{
-    string result;
-    if (m == 0)
-    {
-        result = Create_Word(h) + " o' clock";
-        return result;
-    }
-    if (m==15 || m == 30)
-    {
-        result = Create_Word(m)+Create_Word(h);
-        return result;
-    }
-    if (m==45)
-    {
-        result = Create_Word(m)+Create_Word(h+1);
-        return result;
-    }
-    if (m < 30)
-    {
-        if (m==1)
-            result = Create_Word(m) + " minute past " + Create_Word(h);
-        else 
-            result = Create_Word(m) + " minutes past " + Create_Word(h);
-        return result;
-    }
-    if (m > 30)
-    {
-        int x = 60-m;
-        if (x == 1)
-            result = Create_Word(x) + " minute to " + Create_Word(h+1);
-        else
-            result = Create_Word(x) + " minutes to " + Create_Word(h+1);
-        return result;
-    }
-    return result;
 }
 
 int main()
 {
-    int n;
+    int n,t;
     ifstream fi("input.inp");
-    n = 2;
-    vector<int> arr;
+    fi >> n >> t;
+    vector<int> width;
     for (int i = 0; i < n;i++)
     {
         int x;
         fi >> x;
-        arr.push_back(x);
+        width.push_back(x);
+    }
+    vector<vector<int>> cases;
+    for (int i = 0; i < t;i++)
+    {
+        vector<int> row;
+        for (int j = 0; j < 2;j++)
+        {
+            int x;
+            fi >> x;
+            row.push_back(x);
+        }
+        cases.push_back(row);
     }
     ofstream fo("output.out");
-    fo << timeInWords(arr[0],arr[1]);
+    fo << n << " " << t << endl;
+    for (auto& x:width)
+        fo << x << " ";
+    fo << endl;
+    for (auto& x:cases)
+        fo << x[0] << " " << x[1] << endl;
     return 0;
 }
