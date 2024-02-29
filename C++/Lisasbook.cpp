@@ -20,11 +20,11 @@ int workbook(int n, int k, vector<int> arr)
 {
     int page = 1;
     int count = 0;
-    map<int,vector<int>> book;
+    //map<int,vector<int>> book;
     for (int i = 0; i < n;i++)
     {
         int count_problem = 0;
-        vector<int> group_chapter;
+        //vector<int> group_chapter;
         for (int problem = 1; problem <= arr[i];problem++)
         {
             cout << "PAGE " << page << ": Problem " << problem << endl;
@@ -34,13 +34,13 @@ int workbook(int n, int k, vector<int> arr)
                 //cout << "Special Problem " << problem << endl;
                 count++;
             }
-            group_chapter.push_back(problem);
+            //group_chapter.push_back(problem);
             if (count_problem == k)
             {
-                book[page]=group_chapter;
+                //book[page]=group_chapter;
                 page++;
                 count_problem = 0;
-                group_chapter.clear();
+                //group_chapter.clear();
             }
         }
         if (arr[i]%k!=0)
