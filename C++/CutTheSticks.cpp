@@ -66,13 +66,13 @@ vector<int> cutTheSticks(vector<int> arr)
 
         Special_Index.clear();
 
-        //for (auto i = New_arr.begin(); i != New_arr.end();i++)
-        //    cout << i->second << " ";
-        //cout << endl;
+        for (auto i = New_arr.begin(); i != New_arr.end();i++)
+            cout << i->second << " ";
+        cout << endl;
 
         if (New_arr.size()>=1)
             result.push_back(New_arr.size());
-
+            
     }
     return result;
 }
@@ -81,23 +81,19 @@ int main()
 {
     int n;
     vector<int> arr, result;
-
     ifstream fi("input.inp");
     fi >> n;
-
     for (int i = 0; i < n; i++)
     {
         int x;
         fi >> x;
         arr.push_back(x);
     }
-
     result = cutTheSticks(arr);
-
     ofstream fo("output.out");
-
     for (int i = 0; i < result.size(); i++)
+    {
         fo << result[i] << endl;
-
+    }
     return 0;
 }
