@@ -1,6 +1,7 @@
-#include <iostream>
-#include <cstddef>
-	
+#include <bits/stdc++.h>
+
+using namespace std;
+
 class Node {
     public:
         int data;
@@ -31,30 +32,20 @@ class Solution {
                return root;
            }
         }
-
-/* you only have to complete the function given below.  
-Node is defined as  
-
+/*The tree node has data, left child and right child 
 class Node {
-    public:
-        int data;
-        Node *left;
-        Node *right;
-        Node(int d) {
-            data = d;
-            left = NULL;
-            right = NULL;
-        }
+    int data;
+    Node* left;
+    Node* right;
 };
 
 */
-
-    void preOrder(Node *root) {
-        if (root == NULL)
-            return;
-        std::cout << root->data << " ";
-        preOrder(root->left);
-        preOrder(root->right);
+    int height(Node* root) {
+        if (!root)
+            return -1;
+        int a = height(root->left);
+        int b = height(root->right);
+        return ((a > b) ? a:b) + 1;
     }
 
 }; //End of Solution
@@ -74,7 +65,8 @@ int main() {
         root = myTree.insert(root, data);
     }
   
-    myTree.preOrder(root);
+    int height = myTree.height(root);
+    std::cout << height;
 
     return 0;
 }

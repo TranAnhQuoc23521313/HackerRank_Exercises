@@ -1,5 +1,6 @@
-#include <iostream>
-#include <cstddef>
+#include <bits/stdc++.h>
+
+using namespace std;
 	
 class Node {
     public:
@@ -49,12 +50,13 @@ class Node {
 
 */
 
-    void preOrder(Node *root) {
-        if (root == NULL)
+
+    void postOrder(Node *root) {
+        if (!root)
             return;
+        postOrder(root->left);
+        postOrder(root->right);
         std::cout << root->data << " ";
-        preOrder(root->left);
-        preOrder(root->right);
     }
 
 }; //End of Solution
@@ -74,7 +76,7 @@ int main() {
         root = myTree.insert(root, data);
     }
   
-    myTree.preOrder(root);
+    myTree.postOrder(root);
 
     return 0;
 }

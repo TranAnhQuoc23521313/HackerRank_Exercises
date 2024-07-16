@@ -1,6 +1,7 @@
-#include <iostream>
-#include <cstddef>
-	
+#include<bits/stdc++.h>
+
+using namespace std;
+
 class Node {
     public:
         int data;
@@ -32,9 +33,7 @@ class Solution {
            }
         }
 
-/* you only have to complete the function given below.  
-Node is defined as  
-
+/*
 class Node {
     public:
         int data;
@@ -48,13 +47,31 @@ class Node {
 };
 
 */
-
-    void preOrder(Node *root) {
-        if (root == NULL)
+    void topView(Node * root) 
+    {
+        if (!root)
             return;
-        std::cout << root->data << " ";
-        preOrder(root->left);
-        preOrder(root->right);
+        map<int,int> Top_View_Check_Point;
+        queue<pair<Node*,int>> Q;
+        Q.push(make_pair(root,0));
+
+        while (!Q.empty())
+        {
+            Node* current = Q.front().first;
+            int Distane = Q.front().second;
+            Q.pop();
+            if (Top_View_Check_Point.find(Distane) == Top_View_Check_Point.end())
+            {
+                Top_View_Check_Point[Distane] = current->data;
+            }
+            if (current->left)
+                Q.push({current->left,Distane-1});
+            if (current->right)
+                Q.push({current->right,Distane+1});
+        }
+
+        for (map<int,int>::iterator itr = Top_View_Check_Point.begin(); itr != Top_View_Check_Point.end(); ++itr)
+            cout << itr->second << " ";
     }
 
 }; //End of Solution
@@ -74,7 +91,7 @@ int main() {
         root = myTree.insert(root, data);
     }
   
-    myTree.preOrder(root);
+    myTree.topView(root);
 
     return 0;
 }
