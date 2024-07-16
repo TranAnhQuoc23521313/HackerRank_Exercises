@@ -13,6 +13,7 @@
 #include <set>
 #include <map>
 #include <cmath>
+#include <stdio.h>
 
 #define NumberOfFile 1
 using namespace std;
@@ -26,50 +27,86 @@ void output(vector<int> arr)
     cout << endl;
 }
 
-int flatlandSpaceStations(int n, vector<int> c) 
+int formingMagicSquare(vector<vector<int>> &s)
 {
-    sort(c.begin(),c.end());
-    if (c.size() == n)
-        return 0;
-    vector<int> max_length_roads;
-    if (c[0] != 0)
-        max_length_roads.push_back(c[0]);
-    if (c[c.size()-1]!=n)
-        max_length_roads.push_back(abs(c[c.size()-1]-n+1));
-    for (int i = 0; i < c.size()-1;i++)
+    int Sum_Cross = 0;
+    set<int> Sum_Set;
+    for (int i = 0; i < 3; i++)
     {
-        int gap = abs(c[i]-c[i+1]);
-        if (gap >= 2)
-            {
-                max_length_roads.push_back(gap/2);
-                //cout << gap/2 << endl;
-            }
+        int Sum_Row = 0;
+        int Sum_Col = 0;
+        for (int j = 0; j < 3; j++)
+        {
+            Sum_Row += s[i][j];
+            Sum_Col += s[j][i];
+        }
+        Sum_Cross += s[i][i];
+        s[i][3] = Sum_Row;
+        s[3][i] = Sum_Col;
+        Sum_Set.insert(Sum_Col);
+        Sum_Set.insert(Sum_Row);
     }
-    for (auto& x:max_length_roads)
-        cout << x << endl;
-    if (max_length_roads.empty())
-        return 0;
-    return *max_element(max_length_roads.begin(),max_length_roads.end());
+    s[3][3] = Sum_Cross;
+    Sum_Set.insert(Sum_Cross);
+    set<int> Res_Set;
+    int Max_Magic_Value = *Sum_Set.rbegin();
+    for (int Max_Value = Max_Magic_Value; Max_Value <= 27; Max_Value++)
+    {
+        int Res = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (s[i][j] + abs(s[i][3]-Max_Value) <= 9)
+                {
+                    Res += abs(s[i][3]-Max_Value);
+                    s[i][j] += abs(s[i][3]-Max_Value);
+                }
+            }
+        }
+        bool flag = true;
+        for (int i = 0; i < 3; i++)
+        {
+            if (s[i][3] != Max_Value || s[3][i] != Max_Value)
+                flag = false;
+        }
+        if (flag)
+            return Res;
+    }
+
+    return 0;
 }
 
 int main()
 {
-    int n,m;
-    vector<int> arr;
+    vector<vector<int>> Arr(4, vector<int>(4, 0));
 
     ifstream fi("input.inp");
-    fi >> n >> m;
 
-    for (int i = 0; i < m; i++)
+    for (int i = 0; i < 3; i++)
     {
-        int x;
-        fi >> x;
-        arr.push_back(x);
+        for (int j = 0; j < 3; j++)
+        {
+            int x;
+            fi >> x;
+            Arr[i][j] = x;
+        }
     }
 
-    int result = flatlandSpaceStations(n,arr);
+    int Result = formingMagicSquare(Arr);
 
     ofstream fo("output.out");
-    fo << result;
+    for (vector<int> x : Arr)
+    {
+        for (int y : x)
+            fo << y << " ";
+        fo << endl;
+    }
+    fo << "RES = " << Result << endl;
     return 0;
 }
+
+// 5 3 4 12
+// 1 5 8 14
+// 6 4 2 12
+// 12 12 14 12
