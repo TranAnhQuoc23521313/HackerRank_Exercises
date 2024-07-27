@@ -6,7 +6,8 @@
     "cmath": "cpp",
     "iosfwd": "cpp",
     "iostream": "cpp",
-    "cstdlib": "cpp"
+    "cstdlib": "cpp",
+    "limits": "cpp"
   },
   "C_Cpp_Runner.msvcBatchPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Auxiliary/Build/vcvarsall.bat",
   "C_Cpp_Runner.cCompilerPath": "gcc",
