@@ -5,53 +5,65 @@
 #define OutputFile "output.out"
 using namespace std;
 
-bool Check_Leap_Year(int year)
+pair<int,int> Find_Max(vector<int> Array)
 {
-    if (year % 400 == 0)
-        return true;
-    if ((year % 4 == 0) && (year % 100 != 0))
-        return true;
-    if ((year % 4 == 0) && year < 1918)
-        return true;
-    return false;
+    int max = 0;
+    int index = 0;
+    for (int i = 1; i < Array.size()-1; i++)
+    {
+        if (Array[i] >= Array[index])
+        {
+            max = Array[i];
+            index = i;
+        }
+    }
+    return make_pair(max, index);
 }
 
-string dayOfProgrammer(int year) {
-    vector<int> Days_Of_Months = {0,31,28,31,30,31,30,31,31,30,31,30,31};
-    if (year == 1918)
+string ThunderForce(int x,vector<int> Array)
+{
+    for (int i = 0; i < x-1 ;i++)
     {
-        return "26.09." + to_string(year);
+        pair<int,int> max = Find_Max(Array); // First = max, second = index
+        if (Array[max.second -1] - 1 >= 0 && Array[max.second]-2 >= 0 && Array[max.second + 1] - 1 >= 0)
+        {
+            Array[max.second - 1]--;
+            Array[max.second] -= 2;
+            Array[max.second + 1]--;
+        }
     }
-    if (Check_Leap_Year(year))
-    {
-        cout << "LEAP YEAR !" << endl;
-        Days_Of_Months[2] = 29;
-    }
-    int Sum_Days = 0;
-    for (int i = 1; i <= 8; i++)
-        Sum_Days += Days_Of_Months[i];
-    int Date = 256 - Sum_Days;
-    string D,Y;
-    if (Date >= 10)
-        D = to_string(Date);
-    else 
-        D = "0" + to_string(Date);
-    if (year >= 1000)
-        Y = to_string(year);
-    else 
-        Y = "0" + to_string(year);
-    string Res = D + ".09." + Y;
-    return Res;
+    for (int value:Array)
+        cout << value << " ";
+    for (int value:Array)
+        if (value != 0)
+            {
+                cout << "NO" << endl;
+                return "NO";
+            }
+    cout << "YES" << endl;
+    return "YES";
 }
 
 int main()
 {
     ifstream fi(InputFile);
-    int year;
-    fi >> year;
+    int testcase;
+    fi >> testcase;
+    vector<string> Result(testcase);
+    for (int i = 0; i < testcase; i++)
+    {
+        int x;
+        fi >> x;
+        vector<int> Array(x);
+        for (int j = 0; j < x; j++)
+            fi >> Array[j];
+        Result.push_back(ThunderForce(x, Array));
+    }
 
     ofstream fo(OutputFile);
-    string Res = dayOfProgrammer(year);
-    fo << Res << endl;
+    for (int i = 0; i < testcase; i++)
+    {
+        cout << Result[i] << endl;
+    }
     return 0;
 }
